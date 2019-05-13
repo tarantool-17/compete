@@ -1,0 +1,12 @@
+version: '3'
+services:
+  
+  database:
+    image: postgres:latest
+    ports: ["5431:5432"]
+    # volumes should be in alphabetical order 
+    volumes: ["./sql/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql", "./sql/data.sql:/docker-entrypoint-initdb.d/2-data.sql"]
+    environment:
+      POSTGRES_DB: dev
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: sa
