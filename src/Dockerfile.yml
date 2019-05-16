@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+WORKDIR /src
+
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY Compete/. ./Compete/
+COPY Auth/. ./Auth/
+COPY Test/. ./Test/
+
+RUN dotnet publish -c Release --output /publish
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
+WORKDIR /app
+COPY --from=build /publish .
+ENTRYPOINT ["dotnet", "Compete.dll"]

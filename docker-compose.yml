@@ -10,3 +10,10 @@ services:
       POSTGRES_DB: dev
       POSTGRES_USER: sa
       POSTGRES_PASSWORD: sa
+
+  api:
+    build: 
+      context: ./src
+      dockerfile: Dockerfile.yml
+    image: compete
+    ports: ["8080:80"]
